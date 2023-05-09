@@ -72,6 +72,7 @@ class ConfluenceLoader(BaseLoader):
         api_key: Optional[str] = None,
         username: Optional[str] = None,
         oauth2: Optional[dict] = None,
+        personal_access_token: Optional[str] = None,
         cloud: Optional[bool] = True,
         number_of_retries: Optional[int] = 3,
         min_retry_seconds: Optional[int] = 2,
@@ -99,6 +100,10 @@ class ConfluenceLoader(BaseLoader):
         if oauth2:
             self.confluence = Confluence(
                 url=url, oauth2=oauth2, cloud=cloud, **confluence_kwargs
+            )
+        elif personal_access_token:
+            self.confluence = Confluence(
+                url=url, token=personal_access_token
             )
         else:
             self.confluence = Confluence(
